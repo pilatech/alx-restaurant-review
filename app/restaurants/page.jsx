@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { getRestaurants } from '../../server/restaurantControllers';
 import Link from 'next/link';
+import { getRestaurants } from '../../server/restaurantControllers';
+import Loader from '../../components/Loader';
+import RestaurantCard from '../../components/RestaurantCard';
 
 export default function Page() {
     const [ restaurants, setRestaurants] = useState([])
@@ -16,18 +18,16 @@ export default function Page() {
     []);
 
   return (
-    <>
-        <h1>All Your Restaurants</h1>
-        {restaurants.map((restaurant, index) => {
-            return (
-                <div key={index}>
-                    <Link href={`restaurants/${restaurant}`}> Restaurant {restaurant}</Link>
-                    &nbsp; <button>Like</button>
-                </div>
-            )
-        })}
-        <br/>
-        <Link href="/restaurants/new">Add New</Link>
-    </>
+    <div className="container">
+         <h1>Review Restaurants</h1>
+      <div className="flex gap-2">
+        {restaurants.length ? 
+        restaurants.map((restaurant, index) => 
+        <RestaurantCard key={index} restaurant={restaurant}/>
+        ) : 
+        <Loader/> }
+      </div>
+      <Link href="/restaurants/new">Add New</Link>
+    </div>
   )
 }

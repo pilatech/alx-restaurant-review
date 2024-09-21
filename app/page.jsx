@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { getRestaurants } from '../server/restaurantControllers';
-import Link from 'next/link';
+import Loader from '../components/Loader';
+import RestaurantCard from '../components/RestaurantCard';
 
 export default function Page() {
     const [ restaurants, setRestaurants] = useState([])
@@ -16,16 +17,15 @@ export default function Page() {
     []);
 
   return (
-    <>
-        <h1>Welcome to the restaurants. We can see featured Restaurants</h1>
-        {restaurants.map((restaurant, index) => {
-            return (
-                <div key={index}>
-                    <Link href={`restaurants/${restaurant}`}> Restaurant {restaurant}</Link>
-                    &nbsp; <button>Like</button>
-                </div>
-            )
-        })}
-    </>
+    <div className="container">
+         <h1>Welcome to the restaurants. We can see featured Restaurants</h1>
+      <div className="flex gap-2">
+        {restaurants.length ? 
+        restaurants.map((restaurant, index) => 
+        <RestaurantCard key={index} restaurant={restaurant}/>
+        ) : 
+        <Loader/> }
+      </div>
+    </div>
   )
 }
