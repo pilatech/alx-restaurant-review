@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getRestaurant } from "../../../../server/restaurantControllers";
+import { getRestaurant, editRestaurant } from "../../../../server/restaurantControllers";
 import Loader from "../../../../components/Loader";
+import { useFormState, useFormStatus } from 'react-dom'
 
 import Link from 'next/link'
 
@@ -11,12 +12,15 @@ export default function EditRestaurant({params}) {
     useEffect(() => {
       getRestaurant(params.id).then(data => setRestaurant(data))
     }, []);
+
+    const [formData, formAction] = useFormState(editRestaurant, restaurant);
   
-    console.log(restaurant)
+    console.log(restaurant);
+    console.log(formData)
   
     const retVal = restaurant ? (   <div className="container">
     <h1 className="form__title"> Edit Restaurant</h1>
-    <form className="form" action="">
+    <form className="form" action={formAction}>
          <div className="input__group">
              <label className="input__label" htmlFor="title">Title</label>
              <input className="input" type="text" id="title" name="title"/>

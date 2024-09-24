@@ -24,7 +24,7 @@ export default function RestaurantCard({ restaurant, single}) {
             />
           </div>
         <div className="card__content">
-          <h3 className="card__title">{restaurant.title} {single && <Link href={`/restaurants/${restaurant.id}/edit`} className="card__link"> ( Edit )</Link>}</h3>
+          <h3 className="card__title">{restaurant.title} {single && <Link href={`/restaurants/${restaurant._id}/edit`} className="card__link"> ( Edit )</Link>}</h3>
         <p className="card__description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt autem omnis placeat tenetur libero aperiam, ducimus magnam dignissimos sapiente officiis consectetur corrupti eligendi hic illum sit sint voluptates nisi temporibus.</p>
           {single ? 
           (<div className="card__stats">
@@ -32,7 +32,7 @@ export default function RestaurantCard({ restaurant, single}) {
             <p><IoLocationSharp/> Some Location</p>
             <p><IoPerson/> John Doe</p>
           </div>) : 
-          <Link href={`/restaurants/${restaurant.id}`} className="card__link"> View Restaurant</Link>}
+          <Link href={`/restaurants/${restaurant._id}`} className="card__link"> View Restaurant</Link>}
         </div>
           <LikeButton liked={liked} setLiked={setLiked}/>
       </div>
